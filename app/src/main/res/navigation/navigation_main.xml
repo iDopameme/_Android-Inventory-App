@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/loginFragment">
+
+<!--    Home Fragment (App will launch on this fragment)   -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.udacity.shoestore.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+<!--        Action is defining what it will lead to and also the id  -->
+        <action
+            android:id="@+id/login_to_welcome"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+
+<!--    Login -> Welcome Fragment    -->
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.udacity.shoestore.WelcomeFragment"
+        android:label="fragment_welome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/welcome_to_instruction"
+            app:destination="@id/instructionFragment" />
+    </fragment>
+
+
+<!--    Welcome -> Instruction Fragment  -->
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="com.udacity.shoestore.InstructionFragment"
+        android:label="fragment_instruction"
+        tools:layout="@layout/fragment_instruction" >
+        <action
+            android:id="@+id/instruction_to_ShoeList"
+            app:destination="@id/shoeListFragment" />
+    </fragment>
+
+<!--    Instruction -> Shoe List Fragment  -->
+    <fragment
+        android:id="@+id/shoeListFragment"
+        android:name="com.udacity.shoestore.ShoeListFragment"
+        android:label="shoe_list_fragment"
+        tools:layout="@layout/shoe_list_fragment" >
+        <action
+            android:id="@+id/list_to_detail"
+            app:destination="@id/shoeDetailFragment" />
+    </fragment>
+
+<!--    Shoe List -> Shoe Detail Fragment-->
+    <fragment
+        android:id="@+id/shoeDetailFragment"
+        android:name="com.udacity.shoestore.ShoeDetailFragment"
+        android:label="fragment_shoe_detail"
+        tools:layout="@layout/fragment_shoe_detail" />
+</navigation>
