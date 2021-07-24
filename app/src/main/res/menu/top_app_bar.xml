@@ -10,17 +10,17 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/favorite"
-        android:contentDescription="@string/content_description_favorite"
-        android:icon="@drawable/baseline_favorite_24"
-        android:title="@string/favorite"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/search"
         android:contentDescription="@string/content_description_search"
         android:icon="@drawable/baseline_search_24"
         android:title="@string/search"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/favorite"
+        android:contentDescription="@string/content_description_favorite"
+        android:icon="@drawable/baseline_favorite_24"
+        android:title="@string/favorite"
         app:showAsAction="ifRoom" />
 
     <item

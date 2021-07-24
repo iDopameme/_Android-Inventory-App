@@ -24,21 +24,33 @@ class MainActivity : AppCompatActivity() {
 //    retrieve the widgets in that UI that you need to interact with programmatically
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the activity content to an explicit view. This view is placed directly into the
+        // activity's view hierarchy. It an itself be a complex view hierarchy.
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
         val navController = navHostFragment.navController
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
         findViewById<Toolbar>(R.id.topAppBar)
             .setupWithNavController(navController, appBarConfiguration)
 
-        topAppBar.setNavigationOnClickListener {
-            // Handle navigation icon press
-        }
+//        THIS CONFLICTS WITH onSupportNavigateUp() WILL NOT ALLOW APP TO NAVIGATE UP WHEN USED.
+//        topAppBar.setNavigationOnClickListener {
+//            // Handle navigation icon press
+//        }
 
+        // Set a custom listener for invocation of this menu item. In most situations, it is more
+        // efficient and easier to use
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.logout -> {
+                    // Logout icon press function
+                    true
+                }
                 R.id.favorite -> {
                     // Handle favorite icon press
                     true
@@ -63,6 +75,11 @@ class MainActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
+    // This hook is called whenever an item in your options menu is selected. The default
+    // implementation simply returns false to have the normal processing happen (calling the
+    // item's Runnable or sending a message to its Handler as appropriate). You can use this
+    // method for any items for which you would like to do processing without those other
+    // facilities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }

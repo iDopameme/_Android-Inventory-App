@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/layout/activity_main.xml" value="0.338768115942029" />
         <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/layout/fragment_instruction.xml" value="0.34375" />
+        <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/layout/fragment_shoe_detail.xml" value="0.34375" />
         <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/layout/fragment_welcome.xml" value="0.34375" />
+        <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/layout/shoe_list_fragment.xml" value="0.34375" />
         <entry key="..\:/Users/Dopam/AndroidStudioProjects/ShoeInventoryApp/app/src/main/res/menu/top_app_bar.xml" value="0.36666666666666664" />
       </map>
     </option>

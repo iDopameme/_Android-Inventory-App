@@ -3,22 +3,34 @@ package com.udacity.shoestore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 
-class ShoeListViewModel : ViewModel() {
-    private var shoeName = ""
-    private var shoeSize = 0
+// Primary Constructor is used
+class ShoeListViewModel(name: String, size: Int) : ViewModel() {
+    // Private variables
+    private var shoeName = name
+    private var shoeSize = size
+    // Mutable Data (???)
+    private var nameResult: MutableLiveData<String> = MutableLiveData()
+    private var sizeResult: MutableLiveData<Int> = MutableLiveData()
 
-    private var result: MutableLiveData<String> = MutableLiveData()
-
-    fun setShoes(n: String, s: Int) {
-        this.shoeName = n
-        this.shoeSize = s
+    // Setter Shoe name
+    fun setShoeName(value: String) {
+        this.shoeName = value
+        nameResult.value = value
     }
 
-    fun getShoeName(): String {
-        return shoeName
+    // Setter Shoe size
+    fun setShoeSize(value: Int) {
+        this.shoeSize = value
+        sizeResult.value = value
     }
 
-    fun getShoeSize(): Int {
-        return shoeSize
+    // Getter Shoe name
+    fun getShoeName(): MutableLiveData<String> {
+        return nameResult
+    }
+
+    // Getter Shoe size
+    fun getShoeSize(): MutableLiveData<Int> {
+        return sizeResult
     }
 }

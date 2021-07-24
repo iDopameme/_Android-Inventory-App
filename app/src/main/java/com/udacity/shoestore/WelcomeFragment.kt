@@ -45,6 +45,9 @@ class WelcomeFragment : Fragment() {
         //return inflater.inflate(R.layout.fragment_welcome, container, false)
     }
 
+    // Companion objects provide a mechanism for defining variables or functions that are linked
+    // conceptually to a type but are not tied to a particular object. Companion objects are
+    // similar to using Java's static keyword for variables and methods.
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+
 import com.udacity.shoestore.databinding.ShoeListFragmentBinding
 
 class ShoeListFragment : Fragment() {
 
     private var _binding: ShoeListFragmentBinding? = null
-
     private val binding get() = _binding!!
 
     private lateinit var viewModel: ShoeListViewModel
@@ -18,9 +19,7 @@ class ShoeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = ShoeListFragmentBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -32,7 +31,13 @@ class ShoeListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
-        // TODO: Use the ViewModel
+
+
+        val resultObserver = Observer<String> { result ->
+            binding.resultText.text = result.toString()
+        }
+
+        viewModel.getShoeName().observe(viewLifecycleOwner, resultObserver)
     }
 
 }
