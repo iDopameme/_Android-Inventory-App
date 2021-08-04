@@ -31,6 +31,8 @@
     <string name="content_description_search">content_description_search</string>
     <string name="content_description_more">content_description_more</string>
     <string name="content_description_logout">content_description_logout</string>
+    <string name="content_description_editShoeName" />
+    <string name="help">Help</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

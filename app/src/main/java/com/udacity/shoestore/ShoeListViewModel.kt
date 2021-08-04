@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 
 // Primary Constructor is used
-class ShoeListViewModel(name: String, size: Int) : ViewModel() {
+class ShoeListViewModel : ViewModel() {
     // Private variables
-    private var shoeName = name
-    private var shoeSize = size
+    private var shoeName = ""
+    private var shoeSize = 0
     // Mutable Data (???)
     private var nameResult: MutableLiveData<String> = MutableLiveData()
     private var sizeResult: MutableLiveData<Int> = MutableLiveData()
