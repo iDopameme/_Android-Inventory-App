@@ -44,7 +44,10 @@ class ShoeDetailFragment : Fragment() {
 
         binding.saveShoeChanges.setOnClickListener {
             viewModel.setShoe(editShoeName.toString(), editShoeSize.toString())
+            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
         }
+
+
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

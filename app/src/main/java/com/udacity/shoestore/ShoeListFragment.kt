@@ -62,8 +62,9 @@ class ShoeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val resultObserver = Observer<String> {
-            result -> resultText
+            result -> id_shoeView1.text = result.toString()
         }
+        viewModel.getShoe().observe(viewLifecycleOwner, resultObserver)
     }
 
     override fun onDestroyView() {

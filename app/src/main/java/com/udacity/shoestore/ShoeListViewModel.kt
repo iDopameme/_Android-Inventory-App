@@ -24,7 +24,7 @@ class ShoeListViewModel(private val savedStateHandle: SavedStateHandle) : ViewMo
     }
 
     // Get Shoe
-    fun getShoeName(): MutableLiveData<String> {
+    fun getShoe(): MutableLiveData<String> {
         return result
     }
 
