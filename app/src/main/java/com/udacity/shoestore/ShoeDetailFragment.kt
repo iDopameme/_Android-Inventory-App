@@ -1,59 +1,79 @@
 package com.udacity.shoestore
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
+import kotlinx.android.synthetic.main.fragment_shoe_detail.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ShoeDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ShoeDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewModel: ShoeListViewModel
+
+    private lateinit var binding: FragmentShoeDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shoe_detail, container, false)
+        binding = FragmentShoeDetailBinding.inflate(inflater, container, false)
+
+        //Get the viewmodel
+        viewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
+
+        // set the viewmodel for databinding, allows the bound layout access to all of the data
+        // in the viewModel
+        binding.shoeListViewModel = viewModel
+
+        // Specify the current activity as the lifecycle owner of the binding. This is used so that
+        // the binding can observe LiveData updates
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShoeDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ShoeDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.saveShoeChanges.setOnClickListener {
+            viewModel.setShoe(editShoeName.toString(), editShoeSize.toString())
+        }
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        val itemLogout = menu.findItem(R.id.logout)
+        val itemSearch = menu.findItem(R.id.search)
+
+        itemLogout.isVisible = true
+        itemSearch.isVisible = true
+    }
+
+    //    When the user selects one of the app bar items, the system calls your activity's
+//    onOptionsItemSelected() callback method, and passes a MenuItem object to indicate which
+//    item was clicked
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                findNavController().navigate(ShoeDetailFragmentDirections.shoeDetailLOGOUT())
+                true
+            }
+            R.id.search -> {
+                // Handle search icon press
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
 }

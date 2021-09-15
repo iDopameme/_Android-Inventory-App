@@ -1,85 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="shoelistViewModel"
-            type="com.udacity.shoestore.ShoeListViewModel"/>
+            name="ShoeListViewModel"
+            type="com.udacity.shoestore.ShoeListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shoeList_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ShoeListFragment">
 
-    android:id="@+id/ShoeListLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ShoeListFragment">
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/shoeEntry1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/id_shoeView1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Shoe #1, Size 0"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/shoeEntry2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Shoe #2, Size 0"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/shoeEntry3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Shoe #3, Size 0"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/shoeEntry4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Shoe #4, Size 0"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/shoeEntry5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Shoe #5, Size 0"
-                    android:textSize="34sp" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/shoeView1"
+                    android:textSize="24sp" />
 
             </LinearLayout>
-        </ScrollView>
+
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addNewShoe"
+            android:id="@+id/fabShoeList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:clickable="true"
-            android:contentDescription="content_description_addShoe"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="#66BB6A"
+            android:contentDescription="@string/fabShoeList"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

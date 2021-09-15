@@ -49,6 +49,9 @@
         <action
             android:id="@+id/list_to_detail"
             app:destination="@id/shoeDetailFragment" />
+        <action
+            android:id="@+id/shoeList_LOGOUT"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 <!--    Shoe List -> Shoe Detail Fragment-->
@@ -56,5 +59,12 @@
         android:id="@+id/shoeDetailFragment"
         android:name="com.udacity.shoestore.ShoeDetailFragment"
         android:label="Shoe Detail"
-        tools:layout="@layout/fragment_shoe_detail" />
+        tools:layout="@layout/fragment_shoe_detail" >
+        <action
+            android:id="@+id/detail_to_List"
+            app:destination="@id/shoeListFragment" />
+        <action
+            android:id="@+id/shoeDetail_LOGOUT"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

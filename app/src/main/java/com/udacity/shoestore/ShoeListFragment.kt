@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.ShoeListFragmentBinding
+import kotlinx.android.synthetic.main.shoe_list_fragment.*
 import timber.log.Timber
 
 class ShoeListFragment : Fragment() {
@@ -15,14 +18,17 @@ class ShoeListFragment : Fragment() {
 //    val shoeExample4 = ShoeListViewModel("Puma", 12)
 //    val shoeExample5 = ShoeListViewModel("UA", 11)
 
-    private var _binding: ShoeListFragmentBinding? = null
-    private val binding get() = _binding!!
+    //private var _binding: ShoeListFragmentBinding? = null
+
+    //private val binding get() = _binding!!
 
     private lateinit var viewModel: ShoeListViewModel
 
+    private lateinit var binding: ShoeListFragmentBinding
+
     // Called to have the fragment instantiate its user interface view.
     // This is optional, and non-graphical fragments can return null. This will be called between
-    // onCreate(Bundle) and onViewCreated(View, Bundle)
+    // onCreate(Bundle) and onViewCreated(View, Bundle) 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,26 +37,37 @@ class ShoeListFragment : Fragment() {
         setHasOptionsMenu(true)
 
         // Inflate the layout for this fragment
-        _binding = ShoeListFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
+        binding = ShoeListFragmentBinding.inflate(inflater, container, false)
 
         //Get the viewmodel
         viewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
 
         // set the viewmodel for databinding, allows the bound layout access to all of the data in
         // the viewModel
-        binding.shoelistViewModel = viewModel
+        binding.shoeListViewModel = viewModel
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
 
+
+        binding.fabShoeList.setOnClickListener {
+            findNavController().navigate(ShoeListFragmentDirections.listToDetail())
+        }
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val resultObserver = Observer<String> {
+            result -> resultText
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -69,14 +86,16 @@ class ShoeListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout -> {
-                // Logout icon press function
+                findNavController().navigate(ShoeListFragmentDirections.shoeListLOGOUT())
                 true
             }
             R.id.search -> {
                 // Handle search icon press
                 true
             }
-            else -> false
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 }

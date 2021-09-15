@@ -33,6 +33,13 @@
     <string name="content_description_logout">content_description_logout</string>
     <string name="content_description_editShoeName" />
     <string name="help">Help</string>
+    <string name="shoeView1">TextView</string>
+    <string name="fabShoeList">TODO</string>
+    <string name="textInstruction2">This app allows you to view the list of shoes in the store and you are able to list your own shoes.\n\nDetails should as company, name, shoe size, and description are required.</string>
+    <string name="ex_oxford">Ex: Oxford</string>
+    <string name="ex_kenneth_cole">Ex: Kenneth Cole</string>
+    <string name="ex_10">Ex: 10</string>
+    <string name="ex_brown_color_slip_on">Ex: Brown color, slip-on</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
