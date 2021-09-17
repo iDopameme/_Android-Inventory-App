@@ -1,19 +1,24 @@
 package com.udacity.shoestore
 
+import android.content.ClipData
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
+import com.udacity.shoestore.models.Shoe
 import kotlinx.android.synthetic.main.fragment_shoe_detail.*
 
 
 class ShoeDetailFragment : Fragment() {
 
     private lateinit var viewModel: ShoeListViewModel
-
+    private val shoeListViewModel: ShoeListViewModel by activityViewModels()
     private lateinit var binding: FragmentShoeDetailBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +46,14 @@ class ShoeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.saveShoeChanges.setOnClickListener {
-            viewModel.setShoe(editShoeName.toString(), editShoeSize.toString())
-            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
-        }
-
-
+        shoeListViewModel.shoe.observe(viewLifecycleOwner, Observer<List<Shoe>> { shoes ->
+            saveShoeChanges.setOnClickListener{ shoes ->
+                shoes = Shoe(editShoeName.toString(),
+                    editShoeSize.toString().toDouble(),
+                    editShoeCompany.toString(), editShoeDescription.toString(), List<String>(0)
+                )
+            }
+        })
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
