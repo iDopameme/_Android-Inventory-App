@@ -3,6 +3,7 @@ package com.udacity.shoestore
 import android.content.ClipData
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
 import com.udacity.shoestore.models.Shoe
 import kotlinx.android.synthetic.main.fragment_shoe_detail.*
+import kotlinx.android.synthetic.main.shoe_list_fragment.*
 
 
 class ShoeDetailFragment : Fragment() {
@@ -46,14 +48,12 @@ class ShoeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shoeListViewModel.shoe.observe(viewLifecycleOwner, Observer<List<Shoe>> { shoes ->
-            saveShoeChanges.setOnClickListener{ shoes ->
-                shoes = Shoe(editShoeName.toString(),
-                    editShoeSize.toString().toDouble(),
-                    editShoeCompany.toString(), editShoeDescription.toString(), List<String>(0)
-                )
-            }
-        })
+        saveShoeChanges.setOnClickListener {
+            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
+        }
+        cancelShoeChanges.setOnClickListener {
+            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

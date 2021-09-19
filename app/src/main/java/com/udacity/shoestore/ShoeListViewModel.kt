@@ -1,17 +1,26 @@
 package com.udacity.shoestore
 
+import androidx.databinding.BaseObservable
 import androidx.lifecycle.*
 import com.udacity.shoestore.models.Shoe
 
-
 class ShoeListViewModel : ViewModel() {
-    private val shoes = mutableListOf<Shoe>()
-    private val _shoes = MutableLiveData<List<Shoe>>()
-    val shoe : LiveData<List<Shoe>> get() = _shoes
+    private var _shoes = MutableLiveData<MutableList<Shoe>>() // List of Shoe Class
 
-    fun setShoe(newShoe: Shoe) {
-        shoes.add(newShoe)
-        _shoes.value = shoes
+    var shoeName = MutableLiveData<String>()
+    var shoeCompany = MutableLiveData<String>()
+    var shoeSize = MutableLiveData<String>()
+    var shoeDesc = MutableLiveData<String>()
+
+    val shoe : MutableLiveData<MutableList<Shoe>> get() = _shoes // return List of Shoe Class
+
+    fun addShoe() {
+        val addingShoe = Shoe(shoeName.toString(), shoeSize.toString(), shoeCompany.toString(),
+            shoeDesc.toString())
+
+        _shoes.value?.add(addingShoe)
     }
+
+
 
 }

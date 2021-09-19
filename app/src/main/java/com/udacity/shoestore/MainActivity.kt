@@ -30,14 +30,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
 
+        // Set NavHostFragment as the Fragment manager
+        // !--FragmentManager is the class responsible for performing actions on your app's fragments,
+        // such as adding, removing, or replacing them, and adding them to the back stack. --!
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
                 as NavHostFragment
 
+        // NavController manages app navigation within a NavHost
         val navController = navHostFragment.navController
 
+        // Config options for NavigationUI methods that interact with implementations of the appbar
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
+        // Set a Toolbar to act as the ActionBar for this activity window
         setSupportActionBar(findViewById(R.id.topAppBar))
+
+        // Set whether home should be displayed as an "up" affordance
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Sets up a Toolbar for use with a NavController. By calling this method, the title

@@ -8,6 +8,9 @@
         <variable
             name="ShoeListViewModel"
             type="com.udacity.shoestore.ShoeListViewModel" />
+        <variable
+            name="Shoe"
+            type="com.udacity.shoestore.ShoeListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

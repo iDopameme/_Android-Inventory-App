@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.ShoeListFragmentBinding
 import com.udacity.shoestore.models.Shoe
+import kotlinx.android.synthetic.main.fragment_shoe_detail.*
 import kotlinx.android.synthetic.main.shoe_list_fragment.*
 import org.w3c.dom.Text
 import timber.log.Timber
@@ -53,13 +54,25 @@ class ShoeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fabShoeList.setOnClickListener { shoes ->
-            findNavController().navigate(ShoeListFragmentDirections.listToDetail())
-            if (shoeLinearLayout.isEmpty()) {
-                
-            }
-        }
+        var name: TextView? = null
+        var size: TextView? = null
+//        var company: TextView? = null
+//        var desc: TextView? = null
 
+        shoeListViewModel.shoe.observe(viewLifecycleOwner, Observer { shoe ->
+            if(!shoe.isNullOrEmpty()) {
+                shoe.forEach { shoe ->
+                    name?.text = shoe.name
+                    size?.text = shoe.size
+                    shoeLinearLayout.addView(name)
+                }
+            }
+        })
+
+        // Navigates to fragment_shoe_detail after fabShoeList is pressed
+        fabShoeList.setOnClickListener {
+            findNavController().navigate(ShoeListFragmentDirections.listToDetail())
+        }
     }
 
     override fun onDestroyView() {
@@ -72,6 +85,7 @@ class ShoeListFragment : Fragment() {
         val itemLogout = menu.findItem(R.id.logout)
         val itemSearch = menu.findItem(R.id.search)
 
+        // logout & search menu items are now visible upon reaching the Shoe List Fragment
         itemLogout.isVisible = true
         itemSearch.isVisible = true
     }

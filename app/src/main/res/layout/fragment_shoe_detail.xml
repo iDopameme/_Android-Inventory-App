@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
  <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -9,6 +8,9 @@
         <variable
             name="ShoeListViewModel"
             type="com.udacity.shoestore.ShoeListViewModel" />
+        <variable
+            name="Shoe"
+            type="com.udacity.shoestore.models.Shoe" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +33,7 @@
 
     <EditText
         android:id="@+id/editShoeName"
+        android:text="@={ShoeListViewModel.shoeName}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
@@ -46,6 +49,7 @@
 
     <EditText
         android:id="@+id/editShoeCompany"
+        android:text="@={ShoeListViewModel.shoeCompany}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
@@ -59,6 +63,7 @@
 
     <EditText
         android:id="@+id/editShoeSize"
+        android:text="@={ShoeListViewModel.shoeSize}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
@@ -71,6 +76,7 @@
 
     <EditText
         android:id="@+id/editShoeDescription"
+        android:text="@={ShoeListViewModel.shoeDesc}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="178dp"
@@ -145,6 +151,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/save"
+        android:onClick="@{() -> ShoeListViewModel.addShoe()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
