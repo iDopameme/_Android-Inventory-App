@@ -10,5 +10,6 @@ data class Shoe(
     var size: String,
     var company: String,
     var description: String,
-    //val images: List<String> = mutableListOf() -- No images --
+    //val images: List<String> = mutableListOf() -- No images yet--
 ) : Parcelable
+

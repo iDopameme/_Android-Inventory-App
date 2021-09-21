@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.ShoeListFragmentBinding
 import com.udacity.shoestore.models.Shoe
@@ -21,8 +23,7 @@ import timber.log.Timber
 
 class ShoeListFragment : Fragment() {
 
-    private lateinit var viewModel: ShoeListViewModel
-    private val shoeListViewModel: ShoeListViewModel by activityViewModels()
+    private lateinit var shoeListViewModel: ShoeListViewModel
     private lateinit var binding: ShoeListFragmentBinding
 
     // Called to have the fragment instantiate its user interface view.
@@ -39,44 +40,46 @@ class ShoeListFragment : Fragment() {
         binding = ShoeListFragmentBinding.inflate(inflater, container, false)
 
         //Get the viewmodel
-        viewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
+        shoeListViewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
 
         // set the viewmodel for databinding, allows the bound layout access to all of the data in
         // the viewModel
-        binding.shoeListViewModel = viewModel
+        binding.shoeListViewModel = shoeListViewModel
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
+
+        val shoeObserver = Observer<List<Shoe>> { newShoe ->
+            if (!newShoe.isNullOrEmpty()) {
+                newShoe.forEach { shoe ->
+                    val textView = TextView(this.context)
+
+                    val content = "Shoe Name: ${shoe.name}" +
+                            "\nSize: ${shoe.size} " +
+                            "\nCompany: ${shoe.company} " +
+                            "\nDescription: ${shoe.description} " +
+                            "\n"
+
+                    textView.text = content
+                    textView.textSize = 20f
+
+                    binding.shoeLinearLayout.addView(textView)
+                }
+            }
+        }
+
+        shoeListViewModel.shoe.observe(viewLifecycleOwner, shoeObserver)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var name: TextView? = null
-        var size: TextView? = null
-//        var company: TextView? = null
-//        var desc: TextView? = null
-
-        shoeListViewModel.shoe.observe(viewLifecycleOwner, Observer { shoe ->
-            if(!shoe.isNullOrEmpty()) {
-                shoe.forEach { shoe ->
-                    name?.text = shoe.name
-                    size?.text = shoe.size
-                    shoeLinearLayout.addView(name)
-                }
-            }
-        })
-
         // Navigates to fragment_shoe_detail after fabShoeList is pressed
         fabShoeList.setOnClickListener {
             findNavController().navigate(ShoeListFragmentDirections.listToDetail())
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

@@ -2,6 +2,7 @@ package com.udacity.shoestore
 
 import android.content.ClipData
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
@@ -13,14 +14,13 @@ import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
 import com.udacity.shoestore.models.Shoe
 import kotlinx.android.synthetic.main.fragment_shoe_detail.*
 import kotlinx.android.synthetic.main.shoe_list_fragment.*
+import timber.log.Timber
 
 
 class ShoeDetailFragment : Fragment() {
 
-    private lateinit var viewModel: ShoeListViewModel
-    private val shoeListViewModel: ShoeListViewModel by activityViewModels()
+    private lateinit var shoeListViewModel: ShoeListViewModel
     private lateinit var binding: FragmentShoeDetailBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,24 +33,30 @@ class ShoeDetailFragment : Fragment() {
         binding = FragmentShoeDetailBinding.inflate(inflater, container, false)
 
         //Get the viewmodel
-        viewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
+        shoeListViewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
 
         // set the viewmodel for databinding, allows the bound layout access to all of the data
         // in the viewModel
-        binding.shoeListViewModel = viewModel
+        binding.shoeListViewModel = shoeListViewModel
 
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.lifecycleOwner = this
+
+        binding.shoe = Shoe("", "", "", "")
+
+        val saveButtonObserver = Observer<Boolean> {
+            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
+            Timber.i("Observer called")
+        }
+
+        shoeListViewModel.navigateToListingScreen.observe(viewLifecycleOwner, saveButtonObserver)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        saveShoeChanges.setOnClickListener {
-            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
-        }
         cancelShoeChanges.setOnClickListener {
             findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
         }

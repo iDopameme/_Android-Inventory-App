@@ -9,7 +9,7 @@
             name="ShoeListViewModel"
             type="com.udacity.shoestore.ShoeListViewModel" />
         <variable
-            name="Shoe"
+            name="shoe"
             type="com.udacity.shoestore.models.Shoe" />
     </data>
 
@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/editShoeName"
-        android:text="@={Shoe.name}"
+        android:text="@={shoe.name}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
@@ -49,7 +49,7 @@
 
     <EditText
         android:id="@+id/editShoeCompany"
-        android:text="@={Shoe.company}"
+        android:text="@={shoe.company}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
@@ -63,7 +63,7 @@
 
     <EditText
         android:id="@+id/editShoeSize"
-        android:text="@={Shoe.size}"
+        android:text="@={shoe.size}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
@@ -76,7 +76,7 @@
 
     <EditText
         android:id="@+id/editShoeDescription"
-        android:text="@={Shoe.description}"
+        android:text="@={shoe.description}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="178dp"
@@ -151,7 +151,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/save"
-        android:onClick="@{() -> ShoeListViewModel.addShoe(Shoe)}"
+        android:onClick="@{() -> ShoeListViewModel.addShoe(shoe)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
