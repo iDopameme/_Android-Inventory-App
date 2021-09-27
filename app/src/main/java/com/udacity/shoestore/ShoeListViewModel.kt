@@ -9,7 +9,7 @@ class ShoeListViewModel : ViewModel() {
     val shoe : LiveData<List<Shoe>> get() = _shoes // return List of Shoe Class
 
     init {
-        defaultList()
+        //defaultList()
     }
 
     fun addShoe(shoe: Shoe) {

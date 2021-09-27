@@ -1,21 +1,15 @@
 package com.udacity.shoestore
 
-import android.content.ClipData
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
 import com.udacity.shoestore.models.Shoe
 import kotlinx.android.synthetic.main.fragment_shoe_detail.*
-import kotlinx.android.synthetic.main.shoe_list_fragment.*
 import timber.log.Timber
-
 
 class ShoeDetailFragment : Fragment() {
 
@@ -33,7 +27,7 @@ class ShoeDetailFragment : Fragment() {
         binding = FragmentShoeDetailBinding.inflate(inflater, container, false)
 
         //Get the viewmodel
-        shoeListViewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
+        shoeListViewModel = ViewModelProvider(requireActivity()).get(ShoeListViewModel::class.java)
 
         // set the viewmodel for databinding, allows the bound layout access to all of the data
         // in the viewModel
@@ -46,8 +40,10 @@ class ShoeDetailFragment : Fragment() {
         binding.shoe = Shoe("", "", "", "")
 
         val saveButtonObserver = Observer<Boolean> {
-            findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
-            Timber.i("Observer called")
+            if (shoeListViewModel.navigateToListingScreen.value == true)
+                findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
+
+            Timber.i("Detail Observer called")
         }
 
         shoeListViewModel.navigateToListingScreen.observe(viewLifecycleOwner, saveButtonObserver)
@@ -59,6 +55,7 @@ class ShoeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         cancelShoeChanges.setOnClickListener {
             findNavController().navigate(ShoeDetailFragmentDirections.detailToList())
+            Timber.i("Cancel shoe click Listener called")
         }
     }
 
@@ -82,7 +79,7 @@ class ShoeDetailFragment : Fragment() {
                 true
             }
             R.id.search -> {
-                // Handle search icon press
+                findNavController().popBackStack()
                 true
             }
             else -> {

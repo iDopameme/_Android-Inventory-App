@@ -10,6 +10,10 @@ import com.udacity.shoestore.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
+    companion object {
+        const val LOGIN_SUCCESSFUL: String = "LOGIN_SUCCESSFUL"
+    }
+
     private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -23,7 +27,6 @@ class LoginFragment : Fragment() {
     ): View? {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-
 
         binding.loginButton.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.loginToWelcome())

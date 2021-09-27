@@ -1,24 +1,15 @@
 package com.udacity.shoestore
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.ShoeListFragmentBinding
 import com.udacity.shoestore.models.Shoe
-import kotlinx.android.synthetic.main.fragment_shoe_detail.*
 import kotlinx.android.synthetic.main.shoe_list_fragment.*
-import org.w3c.dom.Text
 import timber.log.Timber
 
 class ShoeListFragment : Fragment() {
@@ -40,7 +31,7 @@ class ShoeListFragment : Fragment() {
         binding = ShoeListFragmentBinding.inflate(inflater, container, false)
 
         //Get the viewmodel
-        shoeListViewModel = ViewModelProvider(this).get(ShoeListViewModel::class.java)
+        shoeListViewModel = ViewModelProvider(requireActivity()).get(ShoeListViewModel::class.java)
 
         // set the viewmodel for databinding, allows the bound layout access to all of the data in
         // the viewModel
@@ -51,6 +42,7 @@ class ShoeListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val shoeObserver = Observer<List<Shoe>> { newShoe ->
+            Timber.i("List Observer called")
             if (!newShoe.isNullOrEmpty()) {
                 newShoe.forEach { shoe ->
                     val textView = TextView(this.context)
@@ -67,6 +59,7 @@ class ShoeListFragment : Fragment() {
                     binding.shoeLinearLayout.addView(textView)
                 }
             }
+            //shoeListViewModel.navigateToListingScreen.value = false
         }
 
         shoeListViewModel.shoe.observe(viewLifecycleOwner, shoeObserver)
@@ -79,6 +72,8 @@ class ShoeListFragment : Fragment() {
         // Navigates to fragment_shoe_detail after fabShoeList is pressed
         fabShoeList.setOnClickListener {
             findNavController().navigate(ShoeListFragmentDirections.listToDetail())
+            shoeListViewModel.navigateToListingScreen.value = false
+            Timber.i("fabShoeList click Listener called")
         }
     }
 

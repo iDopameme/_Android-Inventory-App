@@ -51,7 +51,8 @@
             app:destination="@id/shoeDetailFragment" />
         <action
             android:id="@+id/shoeList_LOGOUT"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
 
 <!--    Shoe List -> Shoe Detail Fragment-->
@@ -62,9 +63,11 @@
         tools:layout="@layout/fragment_shoe_detail" >
         <action
             android:id="@+id/detail_to_List"
-            app:destination="@id/shoeListFragment" />
+            app:destination="@id/shoeListFragment"
+            app:popUpTo="@id/shoeListFragment" />
         <action
             android:id="@+id/shoeDetail_LOGOUT"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"/>
     </fragment>
 </navigation>
